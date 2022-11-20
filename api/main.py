@@ -1,7 +1,7 @@
 import uvicorn
 from fastapi import Depends, FastAPI
-from typing import Optional
-from database import SessionLocal, engine
+from typing import Optional, List
+from database import SessionLocal, engine, Base
 from crud import *
 
 
@@ -21,9 +21,19 @@ def get_db():
         db.close()
 
 
-@app.get("/profiles/")
-def get_profiles(db: Session = Depends(get_db)):
-    return crud_get_profiles(db)
+@app.get("/login/")
+def login(username: str, password: str, db: Session = Depends(get_db)):
+    return crud_login(username, password, db)
+
+
+@app.get("/signup/")
+def signup(username: str, password: str, db: Session = Depends(get_db)):
+    return crud_signup(username, password, db)
+
+
+@app.post("/profiles/")
+def get_profiles(filters: Filters, db: Session = Depends(get_db)):
+    return crud_get_profiles(db, filters)
 
 
 @app.get("/profiles/{id}")
@@ -32,18 +42,18 @@ def get_profile(id: int, db: Session = Depends(get_db)):
 
 
 @app.post("/profile/")
-def create_profile(profile: Profile, db: Session = Depends(get_db)):
-    pass
+def create_profile(profile: InProfile, db: Session = Depends(get_db)):
+    return crud_create_profile(profile, db)
 
 
 @app.put("/profile/{id}")
-def update_profile(id: int, profile: Profile = None, db: Session = Depends(get_db)):
-    pass
+def edit_profile(id: int, profile: EditProfile, db: Session = Depends(get_db)):
+    return crud_edit_profile(id, profile, db)
 
 
 @app.delete("/profile/{id}")
 def delete_profile(id: int, db: Session = Depends(get_db)):
-    pass
+    return crud_delete_profile(id, db)
 
 
 if __name__ == '__main__':
