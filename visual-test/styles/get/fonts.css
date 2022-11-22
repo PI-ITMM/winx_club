@@ -1,0 +1,15 @@
+@font-face {
+  font-family: "Danube";
+  src: local("Danube"), local("Danube-regular"),
+    url("../../fonts/danube.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Moloko";
+  src: local("Moloko"), local("Moloko-regular"),
+    url("../../fonts/moloko.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+}

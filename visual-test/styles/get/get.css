@@ -1,0 +1,67 @@
+.get {
+  margin-bottom: 50px;
+}
+
+.get__container {
+  display: flex;
+  flex-direction: column;
+  padding: 0 100px;
+  gap: 30px;
+}
+
+.get__profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: flex-end;
+  width: 400px;
+  height: 50px;
+  border-radius: 10px;
+  background-color: white;
+  font-size: 32px;
+  color: #ffc100;
+  text-shadow: 2px 3px 1px black;
+}
+
+.get__form {
+  font-family: Tahoma, sans-serif;
+}
+
+.get__fieldset {
+  padding: 0;
+}
+
+.get__select {
+  width: 300px;
+  margin-right: 100px;
+  text-align: center;
+}
+
+.get__input {
+  width: 500px;
+}
+
+.get__select,
+.get__input {
+  padding: 10px;
+  height: 50px;
+  border-radius: 10px;
+}
+
+.get__cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 230px);
+  gap: 20px 50px;
+}
+
+.get__card {
+  padding: 30px 20px;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  background-color: #ffc400;
+  font-size: 60px;
+  color: #b096ff;
+  text-shadow: 2px 3px 1px #8262ff;
+}
