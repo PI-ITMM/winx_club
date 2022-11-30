@@ -4,10 +4,11 @@
   margin-bottom: 50px;
   width: 700px;
   height: 260px;
-  background-image: url("../../img/man-figure.png");
+  background-image: url("../img/man-figure.png");
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
+  font-size: 28px;
   text-align: center;
 }
 

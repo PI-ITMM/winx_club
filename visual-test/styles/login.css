@@ -6,10 +6,12 @@
   margin: 0 auto;
   width: 716px;
   height: 684px;
-  background-image: url("../../img/rachel-background.png");
+  background-image: url("../img/rachel-background.png");
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center top;
+  font-family: 'Danube', sans-serif;
+  font-size: 28px;
 }
 
 .login__fieldset {
