@@ -118,7 +118,6 @@ export default {
       ],
       parameter: '',
       friends: users
-      // .find(user => user.name === 'Алена11111')
     }
   }
 }
