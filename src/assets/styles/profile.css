@@ -30,6 +30,11 @@
   text-align: right;
 }
 
+.profile__input,
+.profile__textarea {
+  font-family: Tahoma, sans-serif;
+}
+
 .profile__input {
   height: 45px;
 }

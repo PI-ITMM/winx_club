@@ -1,13 +1,13 @@
 <template>
-  <header class="header section">
+  <header class="section header">
     <div class="container header__container">
-      <img class="logo" src="../public/img/logo.png" alt="Логотип сайта">
+      <img class="logo" src="./assets/img/logo.png" alt="Логотип сайта">
     </div>
   </header>
 
   <router-view />
 
-  <footer class="footer section">
+  <footer class="section footer">
     <div class="container">
       by winx club 2022
     </div>
