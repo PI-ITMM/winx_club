@@ -1,0 +1,24 @@
+<template>
+  <header class="section header">
+    <div class="container header__container">
+      <img class="logo" src="./assets/img/logo.png" alt="Логотип сайта">
+    </div>
+  </header>
+
+  <router-view />
+
+  <footer class="section footer">
+    <div class="container">
+      by winx club 2022
+    </div>
+  </footer>
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+    }
+  }
+}
+</script>
