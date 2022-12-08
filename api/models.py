@@ -27,3 +27,5 @@ class Profile(Base):
     favorite_drink = Column(String, nullable=False)
     loved_one = Column(String, nullable=False)  # имя второй половинки
     contacts = Column(String, nullable=False)
+    password = Column(String, nullable=False)
+

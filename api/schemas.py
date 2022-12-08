@@ -13,16 +13,17 @@ class InProfile(BaseModel):
     favorite_food: str
     favorite_color: str
     hobby: str
-    pet: str
-    favorite_flower: str
+    pets: str
+    favorite_flowers: str
     zodiac_sign: str
     dream: str
     favorite_season: str
     perfect_date: str
     favorite_actor: str
     favorite_drink: str
-    loved_on: str  # имя второй половинки
-    contact: str
+    loved_one: str  # имя второй половинки
+    contacts: str
+    password: str
 
 
 class OutProfile(BaseModel):
@@ -37,16 +38,16 @@ class OutProfile(BaseModel):
     favorite_food: str
     favorite_color: str
     hobby: str
-    pet: str
-    favorite_flower: str
+    pets: str
+    favorite_flowers: str
     zodiac_sign: str
     dream: str
     favorite_season: str
     perfect_date: str
     favorite_actor: str
     favorite_drink: str
-    loved_on: str  # имя второй половинки
-    contact: str
+    loved_one: str  # имя второй половинки
+    contacts: str
 
     class Config:
         orm_mode = True
@@ -62,16 +63,17 @@ class EditProfile(BaseModel):
     favorite_food: str = None
     favorite_color: str = None
     hobby: str = None
-    pet: str = None
-    favorite_flower: str = None
+    pets: str = None
+    favorite_flowers: str = None
     zodiac_sign: str = None
     dream: str = None
     favorite_season: str = None
     perfect_date: str = None
     favorite_actor: str = None
     favorite_drink: str = None
-    loved_on: str = None  # имя второй половинки
-    contact: str = None
+    loved_one: str = None  # имя второй половинки
+    contacts: str = None
+    password: str
 
 
 class ListProfiles(BaseModel):
@@ -86,4 +88,6 @@ class GoodResponse(BaseModel):
     response: str = "OK"
 
 
-Filters = EditProfile
+class BadResponse(BaseModel):
+    status: int = 404
+    response: str = "profile not found :("

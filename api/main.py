@@ -1,6 +1,5 @@
 import uvicorn
 from fastapi import Depends, FastAPI
-from typing import Optional, List
 from database import SessionLocal, engine, Base
 from crud import *
 
@@ -21,19 +20,15 @@ def get_db():
         db.close()
 
 
-@app.get("/login/")
+@app.post("/login/")
 def login(username: str, password: str, db: Session = Depends(get_db)):
     return crud_login(username, password, db)
 
 
-@app.get("/signup/")
-def signup(username: str, password: str, db: Session = Depends(get_db)):
-    return crud_signup(username, password, db)
-
-
-@app.post("/profiles/")
-def get_profiles(filters: Filters, db: Session = Depends(get_db)):
-    return crud_get_profiles(db, filters)
+@app.get("/profiles/")
+def get_profiles(name: str = None, age: int = None, hair_color: str = None, eye_color: str = None,
+                 zodiac_sign: str = None, db: Session = Depends(get_db)):
+    return crud_get_profiles(db, name=name, age=age, hair_color=hair_color, eye_color=eye_color, zodiac_sign=zodiac_sign)
 
 
 @app.get("/profiles/{id}")
@@ -42,7 +37,7 @@ def get_profile(id: int, db: Session = Depends(get_db)):
 
 
 @app.post("/profile/")
-def create_profile(profile: InProfile, db: Session = Depends(get_db)):
+def create_profile(profile: InProfile, db: Session = Depends(get_db)):  # создание анкеты = регистрация
     return crud_create_profile(profile, db)
 
 
