@@ -8,7 +8,7 @@ class Profile(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False, unique=True)  # имя и фамилия - уникальное значение
-    age = Column(Integer, nullable=False)
+    age = Column(String, nullable=False)
     hair_color = Column(String, nullable=False)
     eye_color = Column(String, nullable=False)
     favorite_book = Column(String, nullable=False)
