@@ -11,14 +11,21 @@
 
       <form class="friends__form">
         <fieldset class="friends__fieldset">
-          <select class="friends__select" v-model="field">
+          <select class="friends__select" v-model="field"
+          @select="(e) => (choiceField = e.target.value)">
             <option disabled value="">Выбери фильтр</option>
             <option v-for="option in options" :value="option.value" :key="option">{{ option.text }}</option>
           </select>
 
-          <input class="friends__input" type="text" v-model="parameter">
+          <input class="friends__input" type="text" v-model="parameter"
+          @input="(e) => (choiceValue = e.target.value)"
+          >
         </fieldset>
       </form>
+
+      <button class="friends__button" @click="searchingProfiles()">
+            Искать
+      </button>
 
       <ul class="friends__cards">
         <li class="friends__card" v-for="friend in friends" :key="friend.login">
@@ -36,11 +43,16 @@
 
 <script>
 import users from './users.json'
+// import { getProfiles } from '../../api/vue/api'
+
 export default {
+  /* eslint-disable */
   name: 'FriendsView',
   data () {
     return {
-      name: 'тут будет имя',
+      name: 'Моя анкета',
+      choiceValue: '',
+      choiceField: '',
       field: '',
       options: [
         {
@@ -119,6 +131,20 @@ export default {
       parameter: '',
       friends: users
     }
-  }
+  },
+  /*methods: {
+    searchingProfiles() {
+      getProfiles(
+        this.choiceField,
+        this.choiceValue,
+        (data) => {
+          this.friends = data
+        },
+        (error) => {
+          this.error = error.response.data.errorMessage
+        }
+      )
+    }
+  }*/
 }
 </script>

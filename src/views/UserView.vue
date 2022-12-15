@@ -1,14 +1,13 @@
 <template>
   <main class="profile section">
-    <div class="container">
-      <div class="profile__greeting">
-        привет, новый друг!<br>
-        благодаря нашему ресурсу
-        ты сможешь отыскать себе
-        собеседников по интересам.
-        но вначале заполни
-        небольшую анкету
-      </div>
+    <div class="container friends__container">
+      <div class="friends__wrapper">
+        <router-link to="/friends">
+          <button class="friends__button">
+            Смотреть другие анкеты
+          </button>
+        </router-link>
+        </div>
 
       <form class="profile__form">
         <fieldset class="profile__fieldset">
@@ -89,7 +88,10 @@
             <textarea class="profile__textarea" v-model="user.perfect_date"></textarea>
           </label>
         </fieldset>
-          <button class="button button_submit profile__button" type="button" @click="signUp()"></button>
+        <!-- кнопка редактирования -->
+          <button class="button button_submit profile__button" type="button" @click="editingUser()"></button>
+        <!-- кнопка удаления -->
+          <button class="button button_submit profile__button" type="button" @click="deleteThisProfile()"></button>
       </form>
     </div>
   </main>
@@ -97,8 +99,8 @@
 
 <script>
 /* eslint-disable */
-//import { createProfile } from '../../api/vue/api'
-//import router from '../router'
+//import { editProfile, deleteProfile } from '../../api/vue/api'
+import router from '../router'
 
 export default {
   name: 'ProfileView',
@@ -130,8 +132,10 @@ export default {
   },
 
   /*methods: {
-    signUp () {
-      createProfile( this.user.name, this.user.age, this.user.hair_color, this.user.eye_color,
+
+    editingUser() {
+      editProfile(
+      this.user.id, this.user.age, this.user.hair_color, this.user.eye_color,
       this.user.favorite_book, this.user.favorite_music, this.user.favorite_quote,
       this.user.favorite_food, this.user.favorite_color, this.user.hobby, this.user.pets,
       this.user.favorite_flowers,this.user.zodiac_sign, this.user.dream, this.user.favorite_season,
@@ -139,13 +143,26 @@ export default {
       this.user.contacts, this.user.password,
         (data) => {
           this.user = data;
-          router.push({ name: 'friends' })
         },
-        (e) => {
-          this.error = e.response.data.errorMessage
+        (error) => {
+          this.error = error.message;
         }
-      )
+      );
+    },
+
+  deleteThisProfile() {
+      deleteProfile(
+        this.user.id,
+        () => {
+        this.user = "";
+        router.push({ name: 'profile' })
+        },
+        (error) => {
+          this.error = error.message;
+        }
+      );
     },
   },*/
+
 }
 </script>

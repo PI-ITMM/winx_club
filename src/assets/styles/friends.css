@@ -66,8 +66,8 @@
   border-radius: 10px;
   background-color: #ffc400;
   font-size: 60px;
-  color: #b096ff;
-  text-shadow: 2px 3px 1px #8262ff;
+  color: black;
+  text-shadow: 2px 3px 1px gray;
 }
 
 .friends__name {
