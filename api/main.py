@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import uvicorn
 from fastapi import Depends, FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from database import SessionLocal, engine, Base
 from crud import *
 
@@ -11,6 +12,14 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI(
     title="Анкета для друзей",
     version="0.0.1"
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 
