@@ -87,7 +87,3 @@ class GoodResponse(BaseModel):
     status: int = 200
     response: str = "OK"
 
-
-class BadResponse(BaseModel):
-    status: int = 404
-    response: str = "profile not found :("
