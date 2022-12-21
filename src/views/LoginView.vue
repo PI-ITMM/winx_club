@@ -12,7 +12,7 @@
             <input class="login__input" type="password" required v-model="password">
           </label>
         </fieldset>
-          <button class="button button_submit login__button" type="button" @click="signUp()"></button>
+          <button class="button button_submit login__button" type="button" @click="login()"></button>
       </form>
     </div>
     <p class="text-sm mt-4 font-medium leading-none text-gray-500">
@@ -30,15 +30,15 @@
 
 <script>
 /* eslint-disable */
-//import { doLogin } from '../../api/vue/api'
+import { doLogin } from '../../api/vue/api'
 import router from '../router'
 
 export default {
   name: 'LoginView',
   data () {
     return {
-      username: 'test',
-      password: 'test',
+      username: '',
+      password: '',
       user: {
         id: 0,
         name: 'Алена',
@@ -68,17 +68,18 @@ export default {
     signUp(){
     router.push({ name: "profile"})
     },
-    /*login () {
+    login () {
       doLogin(this.username, this.password,
-        () => {
+        (data) => {
           this.user = data;
+          this.$emit('getId', this.user.id)
           router.push({ name: 'friends' })
         },
         (e) => {
-          this.error = e.response.data.errorMessage
+          alert("Неверное имя пользователя или пароль");
         }
       )
-    }*/
+    }
   }
   
 }

@@ -5,7 +5,7 @@
     </div>
   </header>
 
-  <router-view />
+  <router-view @getId="getId" v-bind:id="editId"/>
 
   <footer class="section footer">
     <div class="container">
@@ -18,6 +18,13 @@
 export default {
   data () {
     return {
+      editId: 0
+    }
+  },
+
+  methods: {
+    getId (id) {
+      this.editId = id
     }
   }
 }

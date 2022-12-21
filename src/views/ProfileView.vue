@@ -66,11 +66,11 @@
           </label>
           <label class="profile__label">
             имя любимого-или любимой:
-            <input class="profile__input" type="text" v-model="user.loved_on">
+            <input class="profile__input" type="text" v-model="user.loved_one">
           </label>
           <label class="profile__label">
             любимый питомец:
-            <input class="profile__input" type="text" v-model="user.pet">
+            <input class="profile__input" type="text" v-model="user.pets">
           </label>
           <label class="profile__label">
             любимый цвет:
@@ -78,7 +78,7 @@
           </label>
           <label class="profile__label">
             любимые цветы:
-            <input class="profile__input" type="text" v-model="user.favorite_flower">
+            <input class="profile__input" type="text" v-model="user.favorite_flowers">
           </label>
           <label class="profile__label">
             любимая цитата:
@@ -87,6 +87,14 @@
           <label class="profile__label">
             мое лучшее свидание:
             <textarea class="profile__textarea" v-model="user.perfect_date"></textarea>
+          </label>
+          <label class="profile__label">
+            моя мечта:
+            <textarea class="profile__textarea" v-model="user.dream"></textarea>
+          </label>
+          <label class="profile__label">
+            мои контакты:
+            <textarea class="profile__textarea" v-model="user.contacts"></textarea>
           </label>
         </fieldset>
           <button class="button button_submit profile__button" type="button" @click="signUp()"></button>
@@ -97,39 +105,42 @@
 
 <script>
 /* eslint-disable */
-//import { createProfile } from '../../api/vue/api'
-//import router from '../router'
+import { createProfile } from '../../api/vue/api'
+import router from '../router'
 
 export default {
   name: 'ProfileView',
   data () {
     return {
+      editName:'',
       user: {
-        id: 0,
-        name: 'Алена',
-        password:'test',
-        age: 16,
-        hair_color: 'Блонд',
-        eye_color: 'Зеленый',
-        favorite_book: 'Гарри Поттер',
-        favorite_music: 'Техно',
-        favorite_food: 'Суши',
-        hobby: 'Чтение',
-        zodiac_sign: 'Стрелец',
-        favorite_season: 'Весна',
-        favorite_actor: 'Майкл Мэдсен',
-        favorite_drink: 'Зеленый чай',
-        loved_on: 'Не скажу!!',
-        pet: 'Кошка Китти',
-        favorite_color: 'Желтый',
-        favorite_flower: 'Ромашка',
-        favorite_quote: 'Волк не тот, кто волк, а тот, кто волк...',
-        perfect_date: 'В небольшом кафе вечером, с цветами и маленькими подарками'
+      id: 0,
+      name: '',
+      age: '',
+      hair_color: '',
+      eye_color: '',
+      favorite_book: '',
+      favorite_music: '',
+      favorite_quote: '',
+      favorite_food: '',
+      favorite_color: '',
+      hobby: '',
+      pets: '',
+      favorite_flowers: '',
+      zodiac_sign: '',
+      dream: '',
+      favorite_season: '',
+      perfect_date: '',
+      favorite_actor: '',
+      favorite_drink: '',
+      loved_one: '',
+      contacts: '',
+      password: ''
       },
     }
   },
 
-  /*methods: {
+  methods: {
     signUp () {
       createProfile( this.user.name, this.user.age, this.user.hair_color, this.user.eye_color,
       this.user.favorite_book, this.user.favorite_music, this.user.favorite_quote,
@@ -138,14 +149,15 @@ export default {
       this.user.perfect_date, this.user.favorite_actor, this.user.favorite_drink, this.user.loved_one,
       this.user.contacts, this.user.password,
         (data) => {
-          this.user = data;
           router.push({ name: 'friends' })
+          this.user = data;
+          this.$emit('getId', this.user.id)
         },
         (e) => {
           this.error = e.response.data.errorMessage
         }
       )
     },
-  },*/
+  },
 }
 </script>

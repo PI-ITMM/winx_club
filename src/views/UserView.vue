@@ -1,5 +1,6 @@
+<!-- eslint-disable vue/no-mutating-props -->
 <template>
-  <main class="profile section">
+  <main class="profile section" @getId="getId">
     <div class="container friends__container">
       <div class="friends__wrapper">
         <router-link to="/friends">
@@ -21,7 +22,7 @@
           </label>
           <label class="profile__label">
             возраст:
-            <input class="profile__input" type="number" v-model="user.age">
+            <input class="profile__input" type="text" v-model="user.age" >
           </label>
           <label class="profile__label">
             цвет волос:
@@ -65,11 +66,11 @@
           </label>
           <label class="profile__label">
             имя любимого-или любимой:
-            <input class="profile__input" type="text" v-model="user.loved_on">
+            <input class="profile__input" type="text" v-model="user.loved_one">
           </label>
           <label class="profile__label">
             любимый питомец:
-            <input class="profile__input" type="text" v-model="user.pet">
+            <input class="profile__input" type="text" v-model="user.pets">
           </label>
           <label class="profile__label">
             любимый цвет:
@@ -77,7 +78,7 @@
           </label>
           <label class="profile__label">
             любимые цветы:
-            <input class="profile__input" type="text" v-model="user.favorite_flower">
+            <input class="profile__input" type="text" v-model="user.favorite_flowers">
           </label>
           <label class="profile__label">
             любимая цитата:
@@ -86,6 +87,14 @@
           <label class="profile__label">
             мое лучшее свидание:
             <textarea class="profile__textarea" v-model="user.perfect_date"></textarea>
+          </label>
+          <label class="profile__label">
+            моя мечта:
+            <textarea class="profile__textarea" v-model="user.dream"></textarea>
+          </label>
+          <label class="profile__label">
+            мои контакты:
+            <textarea class="profile__textarea" v-model="user.contacts"></textarea>
           </label>
         </fieldset>
         <!-- кнопка редактирования -->
@@ -99,39 +108,59 @@
 
 <script>
 /* eslint-disable */
-//import { editProfile, deleteProfile } from '../../api/vue/api'
+import { editProfile, deleteProfile, getProfile } from '../../api/vue/api'
 import router from '../router'
 
 export default {
+  props:{
+    id: Number
+  },
   name: 'ProfileView',
   data () {
-    return {
+    return {    
       user: {
-        id: 0,
-        name: 'Алена',
-        password:'test',
-        age: 16,
-        hair_color: 'Блонд',
-        eye_color: 'Зеленый',
-        favorite_book: 'Гарри Поттер',
-        favorite_music: 'Техно',
-        favorite_food: 'Суши',
-        hobby: 'Чтение',
-        zodiac_sign: 'Стрелец',
-        favorite_season: 'Весна',
-        favorite_actor: 'Майкл Мэдсен',
-        favorite_drink: 'Зеленый чай',
-        loved_on: 'Не скажу!!',
-        pet: 'Кошка Китти',
-        favorite_color: 'Желтый',
-        favorite_flower: 'Ромашка',
-        favorite_quote: 'Волк не тот, кто волк, а тот, кто волк...',
-        perfect_date: 'В небольшом кафе вечером, с цветами и маленькими подарками'
+      id: 0,
+      name: '',
+      age: '',
+      hair_color: '',
+      eye_color: '',
+      favorite_book: '',
+      favorite_music: '',
+      favorite_quote: '',
+      favorite_food: '',
+      favorite_color: '',
+      hobby: '',
+      pets: '',
+      favorite_flowers: '',
+      zodiac_sign: '',
+      dream: '',
+      favorite_season: '',
+      perfect_date: '',
+      favorite_actor: '',
+      favorite_drink: '',
+      loved_one: '',
+      contacts: '',
+      password: ''
       },
+      editId:'',
+      editName: '',
+      editAge:'',
+      editHairColor:''
     }
   },
 
-  /*methods: {
+  mounted() {
+    getProfile(this.id,
+      (data) => {
+        this.user = data;
+      },
+      (error) => {
+        this.error = error.message;
+      }
+    );
+  },
+
+  methods: {
 
     editingUser() {
       editProfile(
@@ -162,7 +191,7 @@ export default {
         }
       );
     },
-  },*/
+  },
 
 }
 </script>
