@@ -48,6 +48,7 @@ class OutProfile(BaseModel):
     favorite_drink: str
     loved_one: str  # имя второй половинки
     contacts: str
+    password: str
 
     class Config:
         orm_mode = True
@@ -73,7 +74,7 @@ class EditProfile(BaseModel):
     favorite_drink: str = None
     loved_one: str = None  # имя второй половинки
     contacts: str = None
-    password: str
+    password: str = None
 
 
 class ListProfiles(BaseModel):
