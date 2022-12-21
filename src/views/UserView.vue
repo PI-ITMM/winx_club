@@ -1,14 +1,14 @@
+<!-- eslint-disable vue/no-mutating-props -->
 <template>
-  <main class="profile section">
-    <div class="container">
-      <div class="profile__greeting">
-        привет, новый друг!<br>
-        благодаря нашему ресурсу
-        ты сможешь отыскать себе
-        собеседников по интересам.
-        но вначале заполни
-        небольшую анкету
-      </div>
+  <main class="profile section" @getId="getId">
+    <div class="container friends__container">
+      <div class="friends__wrapper">
+        <router-link to="/friends">
+          <button class="friends__button">
+            Смотреть другие анкеты
+          </button>
+        </router-link>
+        </div>
 
       <form class="profile__form">
         <fieldset class="profile__fieldset">
@@ -22,7 +22,7 @@
           </label>
           <label class="profile__label">
             возраст:
-            <input class="profile__input" type="number" v-model="user.age">
+            <input class="profile__input" type="text" v-model="user.age" >
           </label>
           <label class="profile__label">
             цвет волос:
@@ -97,7 +97,10 @@
             <textarea class="profile__textarea" v-model="user.contacts"></textarea>
           </label>
         </fieldset>
-          <button class="button button_submit profile__button" type="button" @click="signUp()"></button>
+        <!-- кнопка редактирования -->
+          <button class="button button_submit profile__button" type="button" @click="editingUser()"></button>
+        <!-- кнопка удаления -->
+          <button class="button button_submit profile__button" type="button" @click="deleteThisProfile()"></button>
       </form>
     </div>
   </main>
@@ -105,14 +108,16 @@
 
 <script>
 /* eslint-disable */
-import { createProfile } from '../../api/vue/api'
+import { editProfile, deleteProfile, getProfile } from '../../api/vue/api'
 import router from '../router'
 
 export default {
+  props:{
+    id: Number
+  },
   name: 'ProfileView',
   data () {
-    return {
-      editName:'',
+    return {    
       user: {
       id: 0,
       name: '',
@@ -137,27 +142,56 @@ export default {
       contacts: '',
       password: ''
       },
+      editId:'',
+      editName: '',
+      editAge:'',
+      editHairColor:''
     }
   },
 
+  mounted() {
+    getProfile(this.id,
+      (data) => {
+        this.user = data;
+      },
+      (error) => {
+        this.error = error.message;
+      }
+    );
+  },
+
   methods: {
-    signUp () {
-      createProfile( this.user.name, this.user.age, this.user.hair_color, this.user.eye_color,
+
+    editingUser() {
+      editProfile(
+      this.user.id, this.user.age, this.user.hair_color, this.user.eye_color,
       this.user.favorite_book, this.user.favorite_music, this.user.favorite_quote,
       this.user.favorite_food, this.user.favorite_color, this.user.hobby, this.user.pets,
       this.user.favorite_flowers,this.user.zodiac_sign, this.user.dream, this.user.favorite_season,
       this.user.perfect_date, this.user.favorite_actor, this.user.favorite_drink, this.user.loved_one,
       this.user.contacts, this.user.password,
         (data) => {
-          router.push({ name: 'friends' })
           this.user = data;
-          this.$emit('getId', this.user.id)
         },
-        (e) => {
-          this.error = e.response.data.errorMessage
+        (error) => {
+          this.error = error.message;
         }
-      )
+      );
+    },
+
+  deleteThisProfile() {
+      deleteProfile(
+        this.user.id,
+        () => {
+        this.user = "";
+        router.push({ name: 'profile' })
+        },
+        (error) => {
+          this.error = error.message;
+        }
+      );
     },
   },
+
 }
 </script>
