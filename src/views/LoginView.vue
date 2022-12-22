@@ -12,19 +12,13 @@
             <input class="login__input" type="password" required v-model="password">
           </label>
         </fieldset>
-          <button class="button button_submit login__button" type="button" @click="login()"></button>
+        <button class="button button_submit login__button" type="button" @click="login()"></button>
       </form>
+      <div class="login__registration">
+        <p class="login__none">Нет анкеты?</p>
+        <button class="button_registration" @click="signUp()">Зарегистрируйтесь здесь</button>
+      </div>
     </div>
-    <p class="text-sm mt-4 font-medium leading-none text-gray-500">
-              У вас ещё нет анкеты?
-              <button
-              class="hover:text-indigo-700 text-sm font-medium leading-none underline text-gray-800 cursor-pointer"
-              type="button"
-              @click="signUp()"
-              >
-              Зарегистрируйтесь здесь
-            </button>
-            </p>
   </article>
 </template>
 
@@ -35,14 +29,14 @@ import router from '../router'
 
 export default {
   name: 'LoginView',
-  data () {
+  data() {
     return {
       username: '',
       password: '',
       user: {
         id: 0,
         name: 'Алена',
-        password:'test',
+        password: 'test',
         age: 16,
         hair_color: 'Блонд',
         eye_color: 'Зеленый',
@@ -65,10 +59,10 @@ export default {
   },
 
   methods: {
-    signUp(){
-    router.push({ name: "profile"})
+    signUp() {
+      router.push({ name: "profile" })
     },
-    login () {
+    login() {
       doLogin(this.username, this.password,
         (data) => {
           this.user = data;
@@ -81,6 +75,6 @@ export default {
       )
     }
   }
-  
+
 }
 </script>

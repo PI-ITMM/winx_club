@@ -3,12 +3,13 @@
     <div class="container friends__container">
       <div class="friends__wrapper">
         <router-link to="/user">
-          <button class="friends__button">
+          <button class="friends__button friends__button_top">
             Моя анкета
           </button>
         </router-link>
       </div>
 
+      <div class="friends__group" >
       <form class="friends__form">
         <fieldset class="friends__fieldset">
           <select class="friends__select" v-model="field" @change="(e) => (choiceField = e.target.value)">
@@ -22,9 +23,8 @@
         </fieldset>
       </form>
 
-      <button class="friends__button" @click="searchingProfiles()">
-            Искать
-      </button>
+      <button class="button friends__button" @click="searchingProfiles()">Искать</button>
+    </div>
 
       <ul class>
         <li v-for="friend in friends" :key="friend.id">
