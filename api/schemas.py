@@ -4,7 +4,7 @@ from pydantic import BaseModel, Field
 
 class InProfile(BaseModel):
     name: str
-    age: int
+    age: str
     hair_color: str
     eye_color: str
     favorite_book: str
@@ -29,7 +29,7 @@ class InProfile(BaseModel):
 class OutProfile(BaseModel):
     id: int
     name: str
-    age: int
+    age: str
     hair_color: str
     eye_color: str
     favorite_book: str
@@ -48,13 +48,14 @@ class OutProfile(BaseModel):
     favorite_drink: str
     loved_one: str  # имя второй половинки
     contacts: str
+    password: str
 
     class Config:
         orm_mode = True
 
 
 class EditProfile(BaseModel):
-    age: int = None
+    age: str = None
     hair_color: str = None
     eye_color: str = None
     favorite_book: str = None
@@ -73,7 +74,7 @@ class EditProfile(BaseModel):
     favorite_drink: str = None
     loved_one: str = None  # имя второй половинки
     contacts: str = None
-    password: str
+    password: str = None
 
 
 class ListProfiles(BaseModel):
@@ -86,8 +87,3 @@ class ListProfiles(BaseModel):
 class GoodResponse(BaseModel):
     status: int = 200
     response: str = "OK"
-
-
-class BadResponse(BaseModel):
-    status: int = 404
-    response: str = "profile not found :("

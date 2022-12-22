@@ -6,39 +6,41 @@ from sqlalchemy.orm import Session
 from fastapi import HTTPException
 
 
-def crud_get_profiles(db: Session, **kwargs) -> ListProfiles:
-    filters = {k: v for k, v in kwargs.items() if v is not None}
-    profiles = db.query(Profile).filter_by(**filters).all()
+def crud_get_profiles(db: Session, field: str = None, value: str = None) -> ListProfiles:
+    if not field or not value:
+        profiles = db.query(Profile).all()
+    else:
+        profiles = db.query(Profile).filter(getattr(Profile, field).contains(value)).all()
     return ListProfiles(items=[OutProfile(**profile.__dict__) for profile in profiles])
 
 
-def crud_get_profile(id: int, db: Session) -> OutProfile | BadResponse:
+def crud_get_profile(id: int, db: Session) -> OutProfile | HTTPException:
     db_profile = db.query(Profile).filter(Profile.id == id).first()
     if db_profile is None:
-        return BadResponse()
+        raise HTTPException(status_code=404, detail="Profile not found")
     return OutProfile(**db_profile.__dict__)
 
 
-def crud_login(username: str, password: str, db: Session) -> GoodResponse | BadResponse | HTTPException:
+def crud_login(username: str, password: str, db: Session) -> OutProfile | HTTPException:
     profile = db.query(Profile).filter(and_(Profile.name == username, Profile.password == password)).first()
     if profile:
-        return GoodResponse()
+        return OutProfile(**profile.__dict__)
     else:
-        return BadResponse()
+        raise HTTPException(status_code=404, detail="Profile not found")
 
 
-def crud_create_profile(profile: InProfile, db: Session) -> GoodResponse:
+def crud_create_profile(profile: InProfile, db: Session) -> OutProfile:
     db_profile = Profile(**profile.dict())
     db.add(db_profile)
     db.commit()
     db.refresh(db_profile)
-    return GoodResponse()
+    return OutProfile(**db_profile.__dict__)
 
 
-def crud_edit_profile(id: int, profile: EditProfile, db: Session) -> OutProfile | BadResponse:
+def crud_edit_profile(id: int, profile: EditProfile, db: Session) -> OutProfile | HTTPException:
     db_profile = db.query(Profile).filter(Profile.id == id).first()
     if db_profile is None:
-        return BadResponse()
+        raise HTTPException(status_code=404, detail="Profile not found")
     for k, v in profile.dict().items():
         setattr(db_profile, k, v)
     db.commit()
@@ -46,10 +48,10 @@ def crud_edit_profile(id: int, profile: EditProfile, db: Session) -> OutProfile 
     return OutProfile(**new_profile.__dict__)
 
 
-def crud_delete_profile(id: int, db: Session) -> GoodResponse | BadResponse | HTTPException:
+def crud_delete_profile(id: int, db: Session) -> GoodResponse | HTTPException:
     db_profile = db.query(Profile).filter(Profile.id == id).first()
     if db_profile is None:
-        return BadResponse()
+        raise HTTPException(status_code=404, detail="Profile not found")
     db.delete(db_profile)
     db.commit()
     return GoodResponse()

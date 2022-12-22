@@ -4,11 +4,11 @@
     <div class="container friends__container">
       <div class="friends__wrapper">
         <router-link to="/friends">
-          <button class="friends__button">
+          <button class="friends__button friends__button_top">
             Смотреть другие анкеты
           </button>
         </router-link>
-        </div>
+      </div>
 
       <form class="profile__form">
         <fieldset class="profile__fieldset">
@@ -22,7 +22,7 @@
           </label>
           <label class="profile__label">
             возраст:
-            <input class="profile__input" type="text" v-model="user.age" >
+            <input class="profile__input" type="text" v-model="user.age">
           </label>
           <label class="profile__label">
             цвет волос:
@@ -97,10 +97,10 @@
             <textarea class="profile__textarea" v-model="user.contacts"></textarea>
           </label>
         </fieldset>
-        <!-- кнопка редактирования -->
-          <button class="button button_submit profile__button" type="button" @click="editingUser()"></button>
-        <!-- кнопка удаления -->
-          <button class="button button_submit profile__button" type="button" @click="deleteThisProfile()"></button>
+        <div class="profile__button-group">
+          <button class="button button_delete" type="button" @click="deleteThisProfile()"></button>
+          <button class="button button_edit" type="button" @click="editingUser()"></button>
+        </div>
       </form>
     </div>
   </main>
@@ -112,40 +112,40 @@ import { editProfile, deleteProfile, getProfile } from '../../api/vue/api'
 import router from '../router'
 
 export default {
-  props:{
+  props: {
     id: Number
   },
   name: 'ProfileView',
-  data () {
-    return {    
+  data() {
+    return {
       user: {
-      id: 0,
-      name: '',
-      age: '',
-      hair_color: '',
-      eye_color: '',
-      favorite_book: '',
-      favorite_music: '',
-      favorite_quote: '',
-      favorite_food: '',
-      favorite_color: '',
-      hobby: '',
-      pets: '',
-      favorite_flowers: '',
-      zodiac_sign: '',
-      dream: '',
-      favorite_season: '',
-      perfect_date: '',
-      favorite_actor: '',
-      favorite_drink: '',
-      loved_one: '',
-      contacts: '',
-      password: ''
+        id: 0,
+        name: '',
+        age: '',
+        hair_color: '',
+        eye_color: '',
+        favorite_book: '',
+        favorite_music: '',
+        favorite_quote: '',
+        favorite_food: '',
+        favorite_color: '',
+        hobby: '',
+        pets: '',
+        favorite_flowers: '',
+        zodiac_sign: '',
+        dream: '',
+        favorite_season: '',
+        perfect_date: '',
+        favorite_actor: '',
+        favorite_drink: '',
+        loved_one: '',
+        contacts: '',
+        password: ''
       },
-      editId:'',
+      editId: '',
       editName: '',
-      editAge:'',
-      editHairColor:''
+      editAge: '',
+      editHairColor: ''
     }
   },
 
@@ -164,12 +164,12 @@ export default {
 
     editingUser() {
       editProfile(
-      this.user.id, this.user.age, this.user.hair_color, this.user.eye_color,
-      this.user.favorite_book, this.user.favorite_music, this.user.favorite_quote,
-      this.user.favorite_food, this.user.favorite_color, this.user.hobby, this.user.pets,
-      this.user.favorite_flowers,this.user.zodiac_sign, this.user.dream, this.user.favorite_season,
-      this.user.perfect_date, this.user.favorite_actor, this.user.favorite_drink, this.user.loved_one,
-      this.user.contacts, this.user.password,
+        this.user.id, this.user.age, this.user.hair_color, this.user.eye_color,
+        this.user.favorite_book, this.user.favorite_music, this.user.favorite_quote,
+        this.user.favorite_food, this.user.favorite_color, this.user.hobby, this.user.pets,
+        this.user.favorite_flowers, this.user.zodiac_sign, this.user.dream, this.user.favorite_season,
+        this.user.perfect_date, this.user.favorite_actor, this.user.favorite_drink, this.user.loved_one,
+        this.user.contacts, this.user.password,
         (data) => {
           this.user = data;
         },
@@ -179,12 +179,12 @@ export default {
       );
     },
 
-  deleteThisProfile() {
+    deleteThisProfile() {
       deleteProfile(
         this.user.id,
         () => {
-        this.user = "";
-        router.push({ name: 'profile' })
+          this.user = "";
+          router.push({ name: 'profile' })
         },
         (error) => {
           this.error = error.message;

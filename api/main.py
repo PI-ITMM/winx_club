@@ -1,5 +1,8 @@
+from __future__ import annotations
+
 import uvicorn
 from fastapi import Depends, FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from database import SessionLocal, engine, Base
 from crud import *
 
@@ -9,6 +12,14 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI(
     title="Анкета для друзей",
     version="0.0.1"
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 
@@ -26,9 +37,8 @@ def login(username: str, password: str, db: Session = Depends(get_db)):
 
 
 @app.get("/profiles/")
-def get_profiles(name: str = None, age: int = None, hair_color: str = None, eye_color: str = None,
-                 zodiac_sign: str = None, db: Session = Depends(get_db)):
-    return crud_get_profiles(db, name=name, age=age, hair_color=hair_color, eye_color=eye_color, zodiac_sign=zodiac_sign)
+def get_profiles(field: str = None, value: str = None, db: Session = Depends(get_db)):
+    return crud_get_profiles(db, field=field, value=value)
 
 
 @app.get("/profiles/{id}")

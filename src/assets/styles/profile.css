@@ -52,6 +52,13 @@
   font-size: 18px;
 }
 
+.profile__button-group {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 30px;
+}
+
 .profile__button {
   transform: translateX(1200px);
 }
