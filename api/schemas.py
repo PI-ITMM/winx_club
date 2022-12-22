@@ -86,4 +86,9 @@ class ListProfiles(BaseModel):
 
 class GoodResponse(BaseModel):
     status: int = 200
+<<<<<<< HEAD
     response: str = "OK"
+=======
+    response: str = "OK"
+
+>>>>>>> b87be5c88238c9f6ec73f964542fe9e7594869ca
